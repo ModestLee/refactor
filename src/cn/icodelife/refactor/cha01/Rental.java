@@ -24,4 +24,40 @@ public class Rental {
     public void set_daysRented(int _daysRented) {
         this._daysRented = _daysRented;
     }
+
+    /**
+     * 将switch case 提取到函数中,更改变量名字
+     * 利用IDEA工具提取快速不出问题
+     *
+     * @return
+     */
+    double amountFor() {
+        double result = 0;
+        switch (get_movie().get_priceCode()) {
+            case Movie.REGULAR:
+                result += 2;
+                if (get_daysRented() > 2)
+                    result += (get_daysRented() - 2) * 1.5;
+                break;
+            case Movie.NEW_RELEASE:
+                result += get_daysRented() * 3;
+                break;
+            case Movie.CHILDRENS:
+                result += 1.5;
+                if (get_daysRented() > 3)
+                    result += (get_daysRented() - 3) * 1.5;
+                break;
+
+        }
+        return result;
+    }
+
+    public int getFrequentRenterPoints() {
+
+
+        if ((get_movie().get_priceCode() == Movie.NEW_RELEASE) && get_daysRented() > 1)
+            return 2;
+        else
+            return 1;
+    }
 }
